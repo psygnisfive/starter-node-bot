@@ -19,7 +19,7 @@ bot.startRTM(function (err, bot, payload) {
 })
 
 controller.hears('.*', ['direct_mention','direct_message'], function (bot, message) {
-  bot.reply(message, 'A')
+  bot.reply(message, 'You said ' + message.text)
 })
 
 /*
