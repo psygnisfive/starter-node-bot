@@ -20,15 +20,29 @@ bot.startRTM(function (err, bot, payload) {
 
 var shadyData = [];
 
+var request = require('request');
+
 controller.hears('.*', ['direct_mention','direct_message'], function (bot, message) {
   bot.reply(message, 'You said ' + message.text + '.');
+  
   if (0 != shadyData.length) {
-    bot.reply(message, 'Previously, you\'ve said:\n  ' + shadyData.join('\n  '));
+    bot.reply(message, 'Previously, you\'ve said:\n     ' + shadyData.join('\n     '));
   } else {
     bot.reply(message, 'You haven\'t said anything before.');
   }
+  
   shadyData.push(message.text);
+  
+  request('http://www.google.com', function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      bot.reply(message, 'Request successful.');
+    } else {
+      bot.reply(message, 'Request not successful.');
+    }
+  })
 })
+
+
 
 /*
 controller.on('bot_channel_join', function (bot, message) {
