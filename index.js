@@ -18,8 +18,8 @@ bot.startRTM(function (err, bot, payload) {
   }
 })
 
-controller.hears('.*', ['mention'], function (bot, message) {
-  bot.reply(message, 'By your command.')
+controller.hears('.*', ['direct_mention','direct_message'], function (bot, message) {
+  bot.reply(message, 'A')
 })
 
 /*
