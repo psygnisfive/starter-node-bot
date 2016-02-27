@@ -22,6 +22,8 @@ var shadyData = [];
 
 var apiai = require('apiai');
 
+var app = apiai("2c072254b11a4ff3a498e1b2c2d74a2a", "16cd2348-45b2-4059-83c1-7849b075d456");
+
 controller.hears('.*', ['direct_mention','direct_message'], function (bot, message) {
   bot.reply(message, 'You said ' + message.text + '.');
   
@@ -33,66 +35,16 @@ controller.hears('.*', ['direct_mention','direct_message'], function (bot, messa
   
   shadyData.push(message.text);
   
-  /*
-  request('http://www.google.com', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      bot.reply(message, 'Request successful.');
-    } else {
-      bot.reply(message, 'Request not successful.');
-    }
-  })
-  */
+  var request = app.textRequest('do something');
+  
+  request.on('response', function(response) {
+      bot.reply(message, 'Woot!');
+  });
+  
+  request.on('error', function(error) {
+      bot.reply(message, 'Aww.');
+  });
+  
+  request.end()
+  
 })
-
-
-
-/*
-controller.on('bot_channel_join', function (bot, message) {
-  bot.reply(message, "I'm here!")
-})
-
-controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
-  bot.reply(message, 'Hello.')
-})
-
-controller.hears(['hello', 'hi'], ['direct_message'], function (bot, message) {
-  bot.reply(message, 'Hello.')
-  bot.reply(message, 'It\'s nice to talk to you directly.')
-})
-
-controller.hears('.*', ['mention'], function (bot, message) {
-  bot.reply(message, 'You really do care about me. :heart:')
-})
-
-controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
-  var help = 'I will respond to the following messages: \n' +
-      '`bot hi` for a simple message.\n' +
-      '`bot attachment` to see a Slack attachment message.\n' +
-      '`@<your bot\'s name>` to demonstrate detecting a mention.\n' +
-      '`bot help` to see this again.'
-  bot.reply(message, help)
-})
-
-controller.hears(['attachment'], ['direct_message', 'direct_mention'], function (bot, message) {
-  var text = 'Beep Beep Boop is a ridiculously simple hosting platform for your Slackbots.'
-  var attachments = [{
-    fallback: text,
-    pretext: 'We bring bots to life. :sunglasses: :thumbsup:',
-    title: 'Host, deploy and share your bot in seconds.',
-    image_url: 'https://storage.googleapis.com/beepboophq/_assets/bot-1.22f6fb.png',
-    title_link: 'https://beepboophq.com/',
-    text: text,
-    color: '#7CD197'
-  }]
-
-  bot.reply(message, {
-    attachments: attachments
-  }, function (err, resp) {
-    console.log(err, resp)
-  })
-})
-
-controller.hears('.*', ['direct_message', 'direct_mention'], function (bot, message) {
-  bot.reply(message, 'Sorry <@' + message.user + '>, I don\'t understand. \n')
-})
-*/
