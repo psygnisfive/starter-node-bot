@@ -33,6 +33,7 @@ controller.hears('.*', ['direct_mention','direct_message'], function (bot, messa
   
   shadyData.push(message.text);
   
+  /*
   request('http://www.google.com', function (error, response, body) {
     if (!error && response.statusCode == 200) {
       bot.reply(message, 'Request successful.');
@@ -40,6 +41,7 @@ controller.hears('.*', ['direct_mention','direct_message'], function (bot, messa
       bot.reply(message, 'Request not successful.');
     }
   })
+  */
 })
 
 
