@@ -18,31 +18,20 @@ bot.startRTM(function (err, bot, payload) {
   }
 })
 
-var shadyData = [];
-
 var apiai = require('apiai');
 
 var app = apiai("2c072254b11a4ff3a498e1b2c2d74a2a", "16cd2348-45b2-4059-83c1-7849b075d456");
 
 controller.hears('.*', ['direct_mention','direct_message'], function (bot, message) {
-  bot.reply(message, 'You said ' + message.text + '.');
-  
-  if (0 != shadyData.length) {
-    bot.reply(message, 'Previously, you\'ve said:\n     ' + shadyData.join('\n     '));
-  } else {
-    bot.reply(message, 'You haven\'t said anything before.');
-  }
-  
-  shadyData.push(message.text);
   
   var request = app.textRequest(message.text);
   
   request.on('response', function(response) {
-      bot.reply(message, 'Woot!\n\n' + response.result.action + '(' ++ response.parameters.Service + ')');
+      bot.reply(message, response.result.action + '(' ++ response.parameters.Service + ')');
   });
   
   request.on('error', function(error) {
-      bot.reply(message, 'Aww.\n\n' + error);
+      bot.reply(message, 'An error occurred, I\'m afraid.');
   });
   
   request.end()
