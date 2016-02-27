@@ -38,7 +38,7 @@ controller.hears('.*', ['direct_mention','direct_message'], function (bot, messa
   var request = app.textRequest(message.text);
   
   request.on('response', function(response) {
-      bot.reply(message, 'Woot!\n\n' + response.result.action);
+      bot.reply(message, 'Woot!\n\n' + response.result.action + '(' ++ response.parameters.Service + ')');
   });
   
   request.on('error', function(error) {
