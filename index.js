@@ -18,6 +18,11 @@ bot.startRTM(function (err, bot, payload) {
   }
 })
 
+controller.hears('.*', ['mention'], function (bot, message) {
+  bot.reply(message, 'By your command.')
+})
+
+/*
 controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!")
 })
@@ -66,3 +71,4 @@ controller.hears(['attachment'], ['direct_message', 'direct_mention'], function 
 controller.hears('.*', ['direct_message', 'direct_mention'], function (bot, message) {
   bot.reply(message, 'Sorry <@' + message.user + '>, I don\'t understand. \n')
 })
+*/
