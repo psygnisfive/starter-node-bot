@@ -35,7 +35,7 @@ controller.hears('.*', ['direct_mention','direct_message'], function (bot, messa
   
   shadyData.push(message.text);
   
-  var request = app.textRequest('do something');
+  var request = app.textRequest(message.text);
   
   request.on('response', function(response) {
       bot.reply(message, 'Woot!\n\n' + response.result.action);
