@@ -48,3 +48,5 @@ controller.hears('.*', ['direct_mention','direct_message'], function (bot, messa
   request.end()
   
 })
+
+// just trying to force the bot to rebuild
