@@ -20,7 +20,7 @@ bot.startRTM(function (err, bot, payload) {
 
 var shadyData = [];
 
-//var request = require('request');
+var apiai = require('apiai');
 
 controller.hears('.*', ['direct_mention','direct_message'], function (bot, message) {
   bot.reply(message, 'You said ' + message.text + '.');
