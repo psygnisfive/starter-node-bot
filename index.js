@@ -18,8 +18,16 @@ bot.startRTM(function (err, bot, payload) {
   }
 })
 
+var shadyData = [];
+
 controller.hears('.*', ['direct_mention','direct_message'], function (bot, message) {
-  bot.reply(message, 'You said ' + message.text)
+  bot.reply(message, 'You said ' + message.text + '.);
+  if (0 != shadyData.length) {
+    bot.reply(message, 'Previously, you\'ve said:\n  ' + shadyData.join('\n  '));
+  } else {
+    bot.reply(message, 'You haven\'t said anything before.');
+  }
+  shadyData.push(message.text);
 })
 
 /*
