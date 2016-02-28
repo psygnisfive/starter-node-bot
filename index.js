@@ -22,12 +22,24 @@ var apiai = require('apiai');
 
 var app = apiai("2c072254b11a4ff3a498e1b2c2d74a2a", "16cd2348-45b2-4059-83c1-7849b075d456");
 
+
+// [{ username : string, name : string, service : string }]
+var lookup_data = [];
+
+
 controller.hears('.*', ['direct_mention','direct_message'], function (bot, message) {
   
   var request = app.textRequest(message.text);
   
+  var action;
+  
   request.on('response', function(response) {
-      bot.reply(message, response.result.action + '(' + response.result.parameters.Service + ')');
+      action = response.result.action;
+      
+      if ('put_name_service' === action) {
+        bot.reply(message, 'I will add your information!');
+      }
+      
   });
   
   request.on('error', function(error) {
@@ -38,4 +50,34 @@ controller.hears('.*', ['direct_mention','direct_message'], function (bot, messa
   
 })
 
-// just trying to force the bot to rebuild
+
+// username -> service -> [name]
+function get_name_service(username,service) {
+  
+  return lookup_data.
+           filter(function (info) { return username === info.username; }).
+           map(function (info) {
+             return info.name;
+           });
+  
+}
+
+
+// service -> [{ name : string, names : [string] }]
+function get_with_service(service) {
+  
+}
+
+
+// name -> [{ service : string, names : [string] }]
+function get_with_name(username) {
+  
+}
+
+
+// string -> string -> ()
+function put_name_service(username,name,service) {
+  
+  lookup_data.push({ username: current_user, name: name, service: service });
+  
+}
